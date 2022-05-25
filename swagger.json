@@ -1,0 +1,57 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "SimbaTracking",
+        "description": "SimbaTracking"
+    },
+    "paths": {
+        "/rider/signin": {
+            "post": {
+                "x-controller-name": "RiderController",
+                "x-operation-name": "SignIn",
+                "tags": ["RiderController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "SignIn",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "mobile": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "RiderController.SignIn"
+            }
+        }
+    },
+    "components": {},
+    "servers": [{
+        "url": "http://localhost:1330/api"
+    }, {
+        "url": "http://15.188.211.169:1330/api"
+    }]
+}
