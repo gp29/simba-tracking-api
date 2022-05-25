@@ -25,6 +25,10 @@ const user = require('./routes/user');
 const loginLog = require('./routes/login-log');
 const moduleApi = require('./routes/module');
 const settings = require('./routes/settings');
+const email = require('./routes/email');
+const sms = require('./routes/sms');
+const push = require('./routes/push');
+const accessRight = require('./routes/access-right');
 
 //other configurations
 const passport = require('passport');
@@ -59,6 +63,10 @@ app.use('/api/user', user);
 app.use('/api/login-log', loginLog);
 app.use('/api/module', moduleApi);
 app.use('/api/settings', settings);
+app.use('/api/email', email);
+app.use('/api/sms', sms);
+app.use('/api/push', push);
+app.use('/api/access-right', accessRight);
 
 app.use(upload());
 

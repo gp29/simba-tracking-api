@@ -5,9 +5,11 @@ module.exports = {
         users: 'User',
         login_logs: 'Login_log',
         settings: 'Settings',
-        email_templates: 'Email_template',
         roles: 'Role',
         modules: 'Module',
         access_rights: 'Access_right',
+        email_templates: 'Email_template',
+        sms_templates: 'Sms_template',
+        push_templates: 'Push_template',
     }
 };

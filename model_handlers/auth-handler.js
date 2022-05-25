@@ -4,7 +4,6 @@ const config = require('./../config');
 const errors = require('./../utils/dz-errors');
 const dbConstants = require('./../constants/db-constants');
 const query = require('./../utils/query-creator');
-const email_templates = require('./../models/email-template');
 const labels = require('./../utils/labels.json');
 const responseCodes = require('./../utils/response-codes');
 const passwordHandler = require('./../utils/password-handler');
@@ -82,9 +81,10 @@ const login = async(requestParam) => {
     })
 };
 
-const forgot = async(requestParam) => {
+const forgot = async(requestParam, req) => {
     return new Promise(async(resolve, reject) => {
         try {
+            let fullUrl = req.protocol + '://' + req.get('host');
             let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {email: requestParam.email}, { _id: 0}, { created_at: 1 });
             if (!response) {
                 reject(errors(labels.LBL_EMAIL_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
@@ -97,11 +97,7 @@ const forgot = async(requestParam) => {
                 let emailTemplate = template.description;
                 emailTemplate = emailTemplate.replace("#NAME#", response.name);
                 emailTemplate = emailTemplate.replace("#LINK#", requestParam.link+'/#/reset?code='+code);
-
-                emailTemplate = emailTemplate.replace('#FACEBOOK#', settings.fb_url)
-                emailTemplate = emailTemplate.replace('#TWITTER#', settings.twitter_url)
-                emailTemplate = emailTemplate.replace('#INSTAGRAM#', settings.instagram_url)
-                emailTemplate = emailTemplate.replace('#LINKEDIN#', settings.linkedin_url)
+                emailTemplate = emailTemplate.replace("#LOGO#", fullUrl + '/img/logo.png');
                 setupEmail({
                     to_email: [requestParam.email],
                     from_email: template.from_name + ' <' + template.from_email + '>',
