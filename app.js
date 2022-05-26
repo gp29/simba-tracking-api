@@ -29,6 +29,10 @@ const email = require('./routes/email');
 const sms = require('./routes/sms');
 const push = require('./routes/push');
 const accessRight = require('./routes/access-right');
+const deliveryCategory = require('./routes/delivery-category');
+const item = require('./routes/item');
+const device = require('./routes/device');
+const truck = require('./routes/truck');
 
 //other configurations
 const passport = require('passport');
@@ -67,6 +71,10 @@ app.use('/api/email', email);
 app.use('/api/sms', sms);
 app.use('/api/push', push);
 app.use('/api/access-right', accessRight);
+app.use('/api/delivery-category', deliveryCategory);
+app.use('/api/item', item);
+app.use('/api/device', device);
+app.use('/api/truck', truck);
 
 app.use(upload());
 

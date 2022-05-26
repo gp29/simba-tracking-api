@@ -11,5 +11,9 @@ module.exports = {
         email_templates: 'Email_template',
         sms_templates: 'Sms_template',
         push_templates: 'Push_template',
+        delivery_categories: 'Delivery_category',
+        items: 'Item',
+        gps_devices: 'Gps_device',
+        trucks: 'Truck',
     }
 };
