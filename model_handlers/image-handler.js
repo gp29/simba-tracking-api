@@ -75,10 +75,13 @@ const getImage = (params) => {
                 if(params.key.includes("customers") == true){
                     img = config.aws.prefix + config.aws.s3.customerBucket + '/' + key
                 }
+                if(params.key.includes("drivers") == true){
+                    img = config.aws.prefix + config.aws.s3.driverBucket + '/' + key
+                }
+                if(params.key.includes("enterprises") == true){
+                    img = config.aws.prefix + config.aws.s3.enterpriseBucket + '/' + key
+                }
                 resolve(img);
-                return;
-                // const imageData = await AWSHandler.imageGet({bucket: params.bucket, key: params.key});
-                // resolve(imageData.body);
                 return;
             } catch (error) {
                 reject(error);

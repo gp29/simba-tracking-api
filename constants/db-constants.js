@@ -15,5 +15,9 @@ module.exports = {
         items: 'Item',
         gps_devices: 'Gps_device',
         trucks: 'Truck',
+        customers: 'Customer',
+        drivers: 'Driver',
+        enterprises: 'Enterprise',
+        instances: 'Instance',
     }
 };

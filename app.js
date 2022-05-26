@@ -33,6 +33,10 @@ const deliveryCategory = require('./routes/delivery-category');
 const item = require('./routes/item');
 const device = require('./routes/device');
 const truck = require('./routes/truck');
+const customer = require('./routes/customer');
+const driver = require('./routes/driver');
+const enterprise = require('./routes/enterprise');
+const instance = require('./routes/instance');
 
 //other configurations
 const passport = require('passport');
@@ -75,6 +79,10 @@ app.use('/api/delivery-category', deliveryCategory);
 app.use('/api/item', item);
 app.use('/api/device', device);
 app.use('/api/truck', truck);
+app.use('/api/customer', customer);
+app.use('/api/driver', driver);
+app.use('/api/enterprise', enterprise);
+app.use('/api/instance', instance);
 
 app.use(upload());
 
