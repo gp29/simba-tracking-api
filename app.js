@@ -37,6 +37,7 @@ const customer = require('./routes/customer');
 const driver = require('./routes/driver');
 const enterprise = require('./routes/enterprise');
 const instance = require('./routes/instance');
+const road = require('./routes/road');
 
 //other configurations
 const passport = require('passport');
@@ -83,6 +84,7 @@ app.use('/api/customer', customer);
 app.use('/api/driver', driver);
 app.use('/api/enterprise', enterprise);
 app.use('/api/instance', instance);
+app.use('/api/road', road);
 
 app.use(upload());
 

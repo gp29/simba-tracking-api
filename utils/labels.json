@@ -31,5 +31,8 @@
     },
     "LBL_ACCOUNT_INACTIVE": {
         "EN": "Your account has been deactivated, please contact to admin"
+    },
+    "LBL_CAN_NOT_COMPLETE_ROAD": {
+        "EN": "You can't complete this road before started, Please start and then do complete."
     }
 }

@@ -238,11 +238,37 @@ const removeImages = async(requestParam) => {
     })
 };
 
+const driverLists = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let columnValue = {}
+            if(requestParam.instance_id){
+                columnValue.instance_id = requestParam.instance_id
+            }
+            if(requestParam.status){
+                columnValue.status = requestParam.status
+            }
+            let response = await query.selectWithAnd(dbConstants.dbSchema.drivers, columnValue, { _id: 0}, { created_at: 1 });
+            if(response.length == 0){
+                resolve(driverLists({status:'active'}));
+                return;
+            }
+            resolve(response);
+            return;
+        } catch (error) {
+            console.log(error)
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
     create,
     update,
     action,
-    removeImages
+    removeImages,
+    driverLists
 };

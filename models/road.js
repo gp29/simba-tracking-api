@@ -4,7 +4,43 @@ var Schema = mongoose.Schema;
 const idGenerator = require('./../utils/id-generator');
 
 // create a schema
-var driverSchema = new Schema({
+var roadSchema = new Schema({
+    road_id: {
+        type: String,
+        default:''
+    },
+    prefix: {
+        type: String,
+        default:''
+    },
+    start_point: {
+        type: String,
+        default:''
+    },
+    start_latitude: {
+        type: Number,
+        default:0
+    },
+    start_longitude: {
+        type: Number,
+        default:0
+    },
+    end_point: {
+        type: String,
+        default:''
+    },
+    end_latitude: {
+        type: Number,
+        default:0
+    },
+    end_longitude: {
+        type: Number,
+        default:0
+    },
+    truck_id: {
+        type: String,
+        default:''
+    },
     driver_id: {
         type: String,
         default:''
@@ -13,53 +49,13 @@ var driverSchema = new Schema({
         type: String,
         default:''
     },
-    first_name: {
-        type: String,
-        default:''
-    },
-    last_name: {
-        type: String,
-        default:''
-    },
-    mobile_country_code: {
-        type: String,
-        default:''
-    },
-    mobile: {
-        type: String,
-        default:''
-    },
-    dob: {
-        type: String,
-        default:''
-    },
-    family_mobile_country_code: {
-        type: String,
-        default:''
-    },
-    family_mobile: {
-        type: String,
-        default:''
-    },
-    address: {
-        type: String,
-        default:''
-    },
-    profile_photo: {
-        type: String,
-        default:''
-    },
-    licence_number: {
-        type: String,
-        default:''
-    },
-    licence_photo: {
-        type: String,
-        default:''
-    },
     status: {
         type: String,
         default:''
+    },
+    road_status: {
+        type: String,
+        default:'pending'
     },
     created_at: {
         type: Date,
@@ -72,9 +68,9 @@ var driverSchema = new Schema({
 });
 
 // // Execute before each user.save() call
-driverSchema.pre('save', async function(callback) {
-    this.driver_id = await idGenerator.generateId('DRI'); 
+roadSchema.pre('save', async function(callback) {
+    this.road_id = await idGenerator.generateId('ROUTE'); 
 });
 
-var Driver = mongoose.model('Driver', driverSchema);
-module.exports = Driver;
+var Road = mongoose.model('Road', roadSchema);
+module.exports = Road;

@@ -19,5 +19,6 @@ module.exports = {
         drivers: 'Driver',
         enterprises: 'Enterprise',
         instances: 'Instance',
+        roads: 'Road',
     }
 };
