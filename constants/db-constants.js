@@ -20,5 +20,6 @@ module.exports = {
         enterprises: 'Enterprise',
         instances: 'Instance',
         roads: 'Road',
+        jobs: 'Job',
     }
 };

@@ -5,6 +5,7 @@ const errors = require('./../utils/dz-errors');
 const dbConstants = require('./../constants/db-constants');
 const query = require('./../utils/query-creator');
 const customer = require('./../models/customer');
+const job = require('./../models/job');
 const _ = require('underscore');
 const labels = require('./../utils/labels.json');
 const responseCodes = require('./../utils/response-codes');
