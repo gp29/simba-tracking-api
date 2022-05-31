@@ -5,6 +5,8 @@ const jsonResponse = require('./../utils/json-response');
 const express = require('express');
 const router = express.Router();
 const customerHandler = require('./../model_handlers/customer-handler');
+const encryptDecryptHandler = require('./../model_handlers/encrypt-decrypt-handler');
+const labels = require('./../utils/labels.json')
 
 router.post('/create', async(req, res) => {
     try {
@@ -57,6 +59,7 @@ router.post('/update', async(req, res) => {
 
 router.post('/signin', async(req, res) => {
     try {
+        req.body = await encryptDecryptHandler.decryptJson(req.body.encrypt_data)
         if (!req.body.email || !req.body.password) {
             jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
             return
@@ -70,6 +73,7 @@ router.post('/signin', async(req, res) => {
 
 router.post('/forgot', async(req, res) => {
     try {
+        req.body = await encryptDecryptHandler.decryptJson(req.body.encrypt_data)
         if (!req.body.email) {
             jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
             return
@@ -96,6 +100,7 @@ router.post('/signup', async(req, res) => {
 
 router.get('/get-profile', async(req, res) => {
     try {
+        req.query = await encryptDecryptHandler.decryptJson(req.query.encrypt_data)
         if (!req.query.customer_id) {
             jsonResponse(res, responseCodes.BadRequest, errors(labels.LBL_MISSING_PARAMETERS[config.default_language], responseCodes.BadRequest), null)
             return

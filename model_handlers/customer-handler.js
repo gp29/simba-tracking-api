@@ -12,6 +12,7 @@ const responseCodes = require('./../utils/response-codes');
 const timeZone = require('moment-timezone');
 const passwordHandler = require('./../utils/password-handler');
 const imgHandler = require('./../model_handlers/image-handler');
+const encryptDecryptHandler = require('./../model_handlers/encrypt-decrypt-handler');
 
 const get = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
@@ -292,7 +293,7 @@ const forgot = async(requestParam, req) => {
                 });
             }
             await query.updateSingle(dbConstants.dbSchema.customers, {reset_code:code}, {customer_id: response.customer_id});
-            resolve(response);
+            resolve(await encryptDecryptHandler.encrypt({}));
             return;
             resolve({});
             return;
@@ -306,6 +307,25 @@ const forgot = async(requestParam, req) => {
 const signup = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
         try {
+            if(requestParam.first_name){
+                requestParam.first_name = await encryptDecryptHandler.decryptString(requestParam.first_name)
+            }
+            if(requestParam.last_name){
+                requestParam.last_name = await encryptDecryptHandler.decryptString(requestParam.last_name)
+            }
+            if(requestParam.email){
+                requestParam.email = await encryptDecryptHandler.decryptString(requestParam.email)
+            }
+            if(requestParam.password){
+                requestParam.password = await encryptDecryptHandler.decryptString(requestParam.password)
+            }
+            if(requestParam.mobile_country_code){
+                requestParam.mobile_country_code = await encryptDecryptHandler.decryptString(requestParam.mobile_country_code)
+            }
+            if(requestParam.mobile){
+                requestParam.mobile = await encryptDecryptHandler.decryptString(requestParam.mobile)
+            }
+
             requestParam.email = requestParam.email.trim();
             let regexEmail = new RegExp(['^', requestParam.email, '$'].join(''), 'i');
             let compareColumnAndValues = {
@@ -349,7 +369,7 @@ const profile = async(requestParam) => {
                 return;
             }
             response.profile_photo = response.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`simba-tracking/customers/${response.profile_photo}`}) : ''
-            resolve(response);
+            resolve(await encryptDecryptHandler.encrypt(response));
             return;
         } catch (error) {
             reject(error)

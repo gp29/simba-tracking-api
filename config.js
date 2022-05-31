@@ -18,6 +18,8 @@ const requiredParams = [
     'DATABASE_URL',
     'TIME_ZONE',
     'BACKOFFICE_URL',
+    'AES_256_KEY',
+    'AES_256_IV'
 ];
 
 for (let i = 0; i < requiredParams.length; i++) {
@@ -50,5 +52,9 @@ module.exports = {
             driverBucket: process.env.AWS_S3_DRIVER_BUCKET,
             enterpriseBucket: process.env.AWS_S3_ENTERPRISE_BUCKET,
 	    },
-	}
+	},
+    aes256:{
+        key:process.env.AES_256_KEY,
+        iv:process.env.AES_256_IV
+    },
 };
