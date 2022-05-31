@@ -57,6 +57,10 @@ var customerSchema = new Schema({
         type: String,
         default:''
     },
+    reset_code: {
+        type: String,
+        default:''
+    },
     created_at: {
         type: Date,
         default: Date.now

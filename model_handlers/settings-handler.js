@@ -46,7 +46,27 @@ const update = async(requestParam, req) => {
         }
     })
 };
+
+const getCms = async(requestParam, req) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let fullUrl = req.protocol + '://' + req.get('host');
+            let obj = {
+                privacy_policy: fullUrl + '/cms/privacy-policy.html',
+                term_condition: fullUrl + '/cms/term-condition.html',
+            }
+            resolve(obj);
+            return;
+        } catch (error) {
+            console.log(error)
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     update,
+    getCms
 };

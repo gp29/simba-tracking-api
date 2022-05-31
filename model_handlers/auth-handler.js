@@ -91,7 +91,6 @@ const forgot = async(requestParam, req) => {
                 return;
             }
             const code = 'USE'+Math.round((Math.pow(36, 6 + 1) - Math.random() * Math.pow(36, 6))).toString(36).slice(1);
-            let settings = await query.selectWithAndOne(dbConstants.dbSchema.settings, {}, { _id: 0}, { created_at: 1 });
             let template = await query.selectWithAndOne(dbConstants.dbSchema.email_templates, {code: 'ADMIN_FPWD'}, { _id: 0}, { created_at: 1 });
             if(template){
                 let emailTemplate = template.description;
@@ -118,15 +117,28 @@ const forgot = async(requestParam, req) => {
 const reset = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
         try {
-            let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {reset_code: requestParam.code}, { _id: 0}, { created_at: 1 });
-            if (!response) {
-                reject(errors(labels.LBL_EMAIL_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+            if(requestParam.code.includes('USE')){
+                let response = await query.selectWithAndOne(dbConstants.dbSchema.users, {reset_code: requestParam.code}, { _id: 0}, { created_at: 1 });
+                if (!response) {
+                    reject(errors(labels.LBL_EMAIL_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                    return;
+                }
+                let encryptPassword = await passwordHandler.encrypt(requestParam.password.toString());
+                await query.updateSingle(dbConstants.dbSchema.users, {reset_code:'', password: encryptPassword}, {user_id: response.user_id});
+                resolve(response);
                 return;
             }
-            let encryptPassword = await passwordHandler.encrypt(requestParam.password.toString());
-            await query.updateSingle(dbConstants.dbSchema.users, {reset_code:'', password: encryptPassword}, {user_id: response.user_id});
-            resolve(response);
-            return;
+            if(requestParam.code.includes('CUS')){
+                let response = await query.selectWithAndOne(dbConstants.dbSchema.customers, {reset_code: requestParam.code}, { _id: 0, customer_id:1}, { created_at: 1 });
+                if (!response) {
+                    reject(errors(labels.LBL_EMAIL_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                    return;
+                }
+                let encryptPassword = await passwordHandler.encrypt(requestParam.password.toString());
+                await query.updateSingle(dbConstants.dbSchema.customers, {reset_code:'', password: encryptPassword}, {customer_id: response.customer_id});
+                resolve(response);
+                return;
+            }
         } catch (error) {
             reject(error)
             return

@@ -6,11 +6,11 @@
         "description": "SimbaTracking"
     },
     "paths": {
-        "/rider/signin": {
+        "/customer/signin": {
             "post": {
-                "x-controller-name": "RiderController",
+                "x-controller-name": "CustomerController",
                 "x-operation-name": "SignIn",
-                "tags": ["RiderController"],
+                "tags": ["CustomerController"],
                 "security": [{
                     "jwt": []
                 }],
@@ -33,7 +33,7 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "mobile": {
+                                    "email": {
                                         "type": "string"
                                     },
                                     "password": {
@@ -44,7 +44,158 @@
                         }
                     }
                 },
-                "operationId": "RiderController.SignIn"
+                "operationId": "CustomerController.SignIn"
+            }
+        },
+        "/customer/forgot": {
+            "post": {
+                "x-controller-name": "CustomerController",
+                "x-operation-name": "ForgotPassword",
+                "tags": ["CustomerController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "ForgotPassword",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "CustomerController.ForgotPassword"
+            }
+        },
+        "/customer/signup": {
+            "post": {
+                "x-controller-name": "CustomerController",
+                "x-operation-name": "SignUp",
+                "tags": ["CustomerController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "SignUp",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "mobile_country_code": {
+                                        "type": "string"
+                                    },
+                                    "mobile": {
+                                        "type": "string"
+                                    },
+                                    "profile_photo": {
+                                        "type": "file"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "CustomerController.SignUp"
+            }
+        },
+        "/customer/get-profile": {
+            "get": {
+                "x-controller-name": "CustomerController",
+                "x-operation-name": "GetProfile",
+                "tags": ["CustomerController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "GetProfile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "customer_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "CustomerController.GetProfile"
+            }
+        },
+
+        "/settings/get-cms": {
+            "get": {
+                "x-controller-name": "SettingsController",
+                "x-operation-name": "GetCMS",
+                "tags": ["SettingsController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "GetCMS",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [],
+                "operationId": "SettingsController.GetCMS"
             }
         }
     },

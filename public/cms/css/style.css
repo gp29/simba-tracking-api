@@ -1,0 +1,36 @@
+
+/*@import url(http://weloveiconfonts.com/api/?family=fontawesome);*/
+
+/*[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}*/
+.fa{font-family: "fontawesome"}
+body {color: #606468;font: 87.5%/1.5em 'Roboto', sans-serif;margin: 0;}
+input {border: none;font-family: 'Roboto', sans-serif;font-size: 16px;line-height: 1.5em;padding: 0;-webkit-appearance: none;}
+p {line-height: 1.5em;}
+after { clear: both; }
+.page-main-background {float: left;width: 100%;background: url(../img/bg-delivernow.jpg)no-repeat 100% 0;
+  background-size: 630px;}
+#login {margin: 180px auto 180px 50px;width: 514px;float: left;}
+#login form {margin: auto;padding: 22px 40px 50px 40px;width: 100%;background: #ffffff;
+border: 1px solid #c2cfd6;border-bottom: 1px solid #c2cfd6;box-sizing: border-box;}
+#login form span {background-color: #f0f3f5;border: 1px solid #c2cfd6;color: #606468;display: block;float: left;line-height: 32px;text-align: center;width: 40px;height: 32px;}
+#login form input[type="text"] {background-color: #ffffff;color: #536c79;font-size: 15px;margin-bottom: 1em;padding: 0 16px;width:88%;height: 34px;box-sizing: border-box;border: 1px solid #c2cfd6;}
+#login form input[type="password"] {background-color: #ffffff;color: #a9a9a9;font-size: 15px;margin-bottom: 1em;padding: 0 16px;width: 88%;height: 34px;box-sizing: border-box;border: 1px solid #c2cfd6;}
+.login-btn {background-color: #1985ac;border: 0;font-size: 15px;width: auto;height: 36px;color: white;cursor: pointer;margin-top: 10px;
+transition: background 0.3s ease-in-out;padding: 8px 24px;line-height: 100%;}
+.login-btn:hover, #login form input.login-btn:focus {background: #1b8eb7;color: #ffffff;}
+.login h1 {margin-bottom: .3rem;font-weight: bold;line-height: 1.2;color: #29363d;font-size: 2.1875rem;}
+.login p{line-height: 100%;margin-top: 0;margin-bottom: 20px;}
+input[type="submit"].forgot-btn{float: right;background-color: transparent;padding: 18px 10px 18px 0;color: #1985ac;font-size: 15px;cursor: pointer;}
+input[type="submit"].forgot-btn:focus{color: #1985ac;}
+input.forgot-btn:focus{outline: none !important;box-shadow: none !important;}
+#login form input:focus {color: #3e515b;background-color: #fff;border-color: #8ad4ee;outline: 0;
+box-shadow: 0 0 0 0.1rem rgba(32,168,216,.25);-webkit-box-shadow: 0 0 0 0.1rem rgba(32,168,216,.25);-ms-box-shadow: 0 0 0 0.1rem rgba(32,168,216,.25);}
+input[type="submit"] .login-btn:focus{color:#ffffff;}
+
+
+@media only screen and (max-width: 1024px){
+#login {margin: 180px auto;width: 65%;float: none;}
+#login form{background: rgba(255,255,255,0.9);}
+}

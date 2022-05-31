@@ -237,11 +237,137 @@ const removeImages = async(requestParam) => {
     })
 };
 
+// FOR MOBILE APIs
+
+const signin = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            requestParam.email = requestParam.email.trim();
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.customers, {email:requestParam.email}, { _id:0, customer_id: 1, password:1, name:1, email:1, status:1} );
+            if(!response){
+                reject(errors(labels.LBL_EMAIL_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            response = JSON.parse(JSON.stringify(response))
+            if(response.status == 'inactive'){
+                reject(errors(labels.LBL_ACCOUNT_INACTIVE[config.default_language], responseCodes.NotActive));
+                return;
+            }
+            let encryptPassword = await passwordHandler.encrypt(requestParam.password.toString());
+            if(encryptPassword != response.password){
+                reject(errors(labels.LBL_INVALID_PWD[config.default_language], responseCodes.InvalidOTP));
+                return;
+            }
+            resolve(profile({customer_id: response.customer_id}));
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
+const forgot = async(requestParam, req) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let fullUrl = req.protocol + '://' + req.get('host');
+            requestParam.email = requestParam.email.trim();
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.customers, {email:requestParam.email}, { _id:0, customer_id: 1, last_name:1, first_name:1, email:1, status:1} );
+            if(!response){
+                reject(errors(labels.LBL_EMAIL_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            const code = 'CUS'+Math.round((Math.pow(36, 6 + 1) - Math.random() * Math.pow(36, 6))).toString(36).slice(1);
+            let template = await query.selectWithAndOne(dbConstants.dbSchema.email_templates, {code: 'CUS_DRI_FPWD'}, { _id: 0}, { created_at: 1 });
+            if(template){
+                let emailTemplate = template.description;
+                emailTemplate = emailTemplate.replace("#NAME#", response.first_name+' '+response.last_name);
+                emailTemplate = emailTemplate.replace("#LINK#", config.backoffice_url+'/#/reset?code='+code);
+                emailTemplate = emailTemplate.replace("#LOGO#", fullUrl + '/img/logo.png');
+                setupEmail({
+                    to_email: [requestParam.email],
+                    from_email: template.from_name + ' <' + template.from_email + '>',
+                    subject: template.email_subject,
+                    description: emailTemplate
+                });
+            }
+            await query.updateSingle(dbConstants.dbSchema.customers, {reset_code:code}, {customer_id: response.customer_id});
+            resolve(response);
+            return;
+            resolve({});
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
+const signup = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            requestParam.email = requestParam.email.trim();
+            let regexEmail = new RegExp(['^', requestParam.email, '$'].join(''), 'i');
+            let compareColumnAndValues = {
+                $or: [{
+                    email: regexEmail
+                }, {
+                    mobile: requestParam.mobile,
+                    mobile_country_code: requestParam.mobile_country_code,
+                }]
+            };
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.customers, compareColumnAndValues, { _id: 0, customer_id:1}, { created_at: 1 });
+            if(response){
+                reject(errors(labels.LBL_EMAIL_OR_MOBILE_ALREADY_EXISTS[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            if(req.files && req.files.profile_photo){
+                requestParam.profile_photo = await imgHandler.uploadImage(req.files.profile_photo, config.aws.s3.customerBucket)
+            }
+            requestParam.password = await passwordHandler.encrypt(requestParam.password.toString());
+            let res = await query.insertSingle(dbConstants.dbSchema.customers, requestParam);
+            resolve(profile({customer_id: res.customer_id}));
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
+const profile = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.customers, {customer_id:requestParam.customer_id}, { _id:0, customer_id: 1, first_name:1, last_name:1, mobile_country_code:1, mobile:1, email:1, profile_photo:1, business_name:1, business_mobile_country_code:1, business_mobile:1, preferred_contact:1, status:1} );
+            if(!response){
+                reject(errors(labels.LBL_EMAIL_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            response = JSON.parse(JSON.stringify(response))
+            if(response.status == 'inactive'){
+                reject(errors(labels.LBL_ACCOUNT_INACTIVE[config.default_language], responseCodes.NotActive));
+                return;
+            }
+            response.profile_photo = response.profile_photo != '' ? await imgHandler.getImage({bucket: config.aws.bucketName, key:`simba-tracking/customers/${response.profile_photo}`}) : ''
+            resolve(response);
+            return;
+        } catch (error) {
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
     create,
     update,
     action,
-    removeImages
+    removeImages,
+
+    signin,
+    forgot,
+    signup,
+    profile,
 };

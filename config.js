@@ -17,6 +17,7 @@ const requiredParams = [
     'AWS_S3_ENTERPRISE_BUCKET',
     'DATABASE_URL',
     'TIME_ZONE',
+    'BACKOFFICE_URL',
 ];
 
 for (let i = 0; i < requiredParams.length; i++) {
@@ -37,6 +38,7 @@ module.exports = {
 	appName: process.env.APP_NAME,
 	port: process.env.PORT,
     database_url: process.env.DATABASE_URL,
+    backoffice_url: process.env.BACKOFFICE_URL,
 	aws:{
 		keyId: process.env.AWS_ACCESS_KEY_ID,
         key: process.env.AWS_ACCESS_SECRET_KEY,
