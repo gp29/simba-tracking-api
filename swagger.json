@@ -38,6 +38,9 @@
                                     },
                                     "password": {
                                         "type": "string"
+                                    },
+                                    "device_token": {
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -132,6 +135,9 @@
                                     },
                                     "profile_photo": {
                                         "type": "file"
+                                    },
+                                    "device_token": {
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -172,6 +178,438 @@
                 "operationId": "CustomerController.GetProfile"
             }
         },
+        "/customer/update-profile": {
+            "post": {
+                "x-controller-name": "CustomerController",
+                "x-operation-name": "UpdateProfile",
+                "tags": ["CustomerController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "UpdateProfile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "customer_id": {
+                                        "type": "string"
+                                    },
+                                    "first_name": {
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "profile_photo": {
+                                        "type": "file"
+                                    },
+                                    "customer_type": {
+                                        "type": "string",
+                                        "description": "individual or business"
+                                    },
+                                    "business_name": {
+                                        "type": "string",
+                                        "description": "Pass while customer_type=business"
+                                    },
+                                    "business_mobile_country_code": {
+                                        "type": "string",
+                                        "description": "Pass while customer_type=business"
+                                    },
+                                    "business_mobile": {
+                                        "type": "string",
+                                        "description": "Pass while customer_type=business"
+                                    },
+                                    "preferred_contact": {
+                                        "type": "string",
+                                        "description": "Pass while customer_type=business"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "CustomerController.UpdateProfile"
+            }
+        },
+        "/customer/change-password": {
+            "post": {
+                "x-controller-name": "CustomerController",
+                "x-operation-name": "ChangePassword",
+                "tags": ["CustomerController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "ChangePassword",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "customer_id": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "CustomerController.ChangePassword"
+            }
+        },
+        "/customer/logout": {
+            "post": {
+                "x-controller-name": "CustomerController",
+                "x-operation-name": "Logout",
+                "tags": ["CustomerController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Logout",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "customer_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "CustomerController.Logout"
+            }
+        },
+        "/customer/create-job": {
+            "post": {
+                "x-controller-name": "CustomerController",
+                "x-operation-name": "CreateJob",
+                "tags": ["CustomerController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "CreateJob",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "customer_id": {
+                                        "type": "string"
+                                    },
+                                    "truck_id": {
+                                        "type": "string"
+                                    },
+                                    "delivery_category_id": {
+                                        "type": "string"
+                                    },
+                                    "pickup_from": {
+                                        "type": "string",
+                                        "description": "YYYY-MM-DD HH:mm"
+                                    },
+                                    "pickup_landmark": {
+                                        "type": "string"
+                                    },
+                                    "pickup_address": {
+                                        "type": "string"
+                                    },
+                                    "pickup_latitude": {
+                                        "type": "number"
+                                    },
+                                    "pickup_longitude": {
+                                        "type": "number"
+                                    },
+                                    "delivery_landmark": {
+                                        "type": "string"
+                                    },
+                                    "delivery_address": {
+                                        "type": "string"
+                                    },
+                                    "delivery_latitude": {
+                                        "type": "number"
+                                    },
+                                    "delivery_longitude": {
+                                        "type": "number"
+                                    },
+                                    "pickup_contact_name": {
+                                        "type": "string"
+                                    },
+                                    "pickup_contact_number": {
+                                        "type": "string"
+                                    },
+                                    "pickup_instructions": {
+                                        "type": "string"
+                                    },
+                                    "items": {
+                                        "type": "string",
+                                        "description": "Pass object as a string => {item_id:'ITM24234', item_title:'dads', volume:12, weight:12, description:'dfgdfg', qty:10}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "CustomerController.CreateJob"
+            }
+        },
+        "/customer/update-job": {
+            "post": {
+                "x-controller-name": "CustomerController",
+                "x-operation-name": "UpdateJob",
+                "tags": ["CustomerController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "UpdateJob",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "job_id": {
+                                        "type": "string"
+                                    },
+                                    "customer_id": {
+                                        "type": "string"
+                                    },
+                                    "truck_id": {
+                                        "type": "string"
+                                    },
+                                    "delivery_category_id": {
+                                        "type": "string"
+                                    },
+                                    "pickup_from": {
+                                        "type": "string",
+                                        "description": "YYYY-MM-DD HH:mm"
+                                    },
+                                    "pickup_landmark": {
+                                        "type": "string"
+                                    },
+                                    "pickup_address": {
+                                        "type": "string"
+                                    },
+                                    "pickup_latitude": {
+                                        "type": "number"
+                                    },
+                                    "pickup_longitude": {
+                                        "type": "number"
+                                    },
+                                    "delivery_landmark": {
+                                        "type": "string"
+                                    },
+                                    "delivery_address": {
+                                        "type": "string"
+                                    },
+                                    "delivery_latitude": {
+                                        "type": "number"
+                                    },
+                                    "delivery_longitude": {
+                                        "type": "number"
+                                    },
+                                    "pickup_contact_name": {
+                                        "type": "string"
+                                    },
+                                    "pickup_contact_number": {
+                                        "type": "string"
+                                    },
+                                    "pickup_instructions": {
+                                        "type": "string"
+                                    },
+                                    "items": {
+                                        "type": "string",
+                                        "description": "Pass object as a string => {item_id:'ITM24234', volume:12, weight:12, description:'dfgdfg', qty:10}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "CustomerController.UpdateJob"
+            }
+        },
+        "/customer/current-delivery": {
+            "get": {
+                "x-controller-name": "CustomerController",
+                "x-operation-name": "CurrentDelivery",
+                "tags": ["CustomerController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "CurrentDelivery",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "customer_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "CustomerController.CurrentDelivery"
+            }
+        },
+        "/customer/delivery-history": {
+            "get": {
+                "x-controller-name": "CustomerController",
+                "x-operation-name": "DeliveryHistory",
+                "tags": ["CustomerController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "DeliveryHistory",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "customer_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "CustomerController.DeliveryHistory"
+            }
+        },
+        "/customer/rate-job": {
+            "post": {
+                "x-controller-name": "CustomerController",
+                "x-operation-name": "RateJob",
+                "tags": ["CustomerController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "RateJob",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "customer_id": {
+                                        "type": "string"
+                                    },
+                                    "job_id": {
+                                        "type": "string"
+                                    },
+                                    "rating": {
+                                        "type": "string"
+                                    },
+                                    "comment": {
+                                        "type": "string",
+                                        "description": "Optional"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "CustomerController.RateJob"
+            }
+        },
 
         "/settings/get-cms": {
             "get": {
@@ -196,6 +634,783 @@
                 },
                 "parameters": [],
                 "operationId": "SettingsController.GetCMS"
+            }
+        },
+        "/settings/get-settings": {
+            "get": {
+                "x-controller-name": "SettingsController",
+                "x-operation-name": "GetSettings",
+                "tags": ["SettingsController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "GetSettings",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [],
+                "operationId": "SettingsController.GetSettings"
+            }
+        },
+
+        "/truck/list": {
+            "get": {
+                "x-controller-name": "TruckController",
+                "x-operation-name": "List",
+                "tags": ["TruckController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "List",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "customer_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "TruckController.List"
+            }
+        },
+
+        "/delivery-category/list": {
+            "get": {
+                "x-controller-name": "DeliveryCatController",
+                "x-operation-name": "List",
+                "tags": ["DeliveryCatController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "List",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "customer_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "DeliveryCatController.List"
+            }
+        },
+
+        "/item/list": {
+            "get": {
+                "x-controller-name": "ItemController",
+                "x-operation-name": "List",
+                "tags": ["ItemController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "List",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "customer_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "ItemController.List"
+            }
+        },
+
+        "/job/cancel-job": {
+            "post": {
+                "x-controller-name": "JobController",
+                "x-operation-name": "CancelJob",
+                "tags": ["JobController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "CancelJob",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "customer_id": {
+                                        "type": "string"
+                                    },
+                                    "job_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "JobController.CancelJob"
+            }
+        },
+        "/job/pickedup-job": {
+            "post": {
+                "x-controller-name": "JobController",
+                "x-operation-name": "PickedupJob",
+                "tags": ["JobController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "PickedupJob",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "driver_id": {
+                                        "type": "string"
+                                    },
+                                    "job_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "JobController.PickedupJob"
+            }
+        },
+        "/job/delivered-job": {
+            "post": {
+                "x-controller-name": "JobController",
+                "x-operation-name": "DeliveredJob",
+                "tags": ["JobController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "DeliveredJob",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "driver_id": {
+                                        "type": "string"
+                                    },
+                                    "job_id": {
+                                        "type": "string"
+                                    },
+                                    "signature_proof_image": {
+                                        "type": "file"
+                                    },
+                                    "delivery_recipient_name": {
+                                        "type": "string"
+                                    },
+                                    "specified_recipient": {
+                                        "type": "string"
+                                    },
+                                    "note": {
+                                        "type": "string"
+                                    },
+                                    "is_safe": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "JobController.DeliveredJob"
+            }
+        },
+
+        "/driver/check-driver": {
+            "post": {
+                "x-controller-name": "DriverController",
+                "x-operation-name": "CheckDriver",
+                "tags": ["DriverController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "CheckDriver",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "instance_id": {
+                                        "type": "string"
+                                    },
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "mobile_country_code": {
+                                        "type": "string"
+                                    },
+                                    "mobile": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "DriverController.CheckDriver"
+            }
+        },
+        "/driver/get-profile": {
+            "get": {
+                "x-controller-name": "DriverController",
+                "x-operation-name": "GetProfile",
+                "tags": ["DriverController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "GetProfile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "driver_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "DriverController.GetProfile"
+            }
+        },
+        "/driver/signup": {
+            "post": {
+                "x-controller-name": "DriverController",
+                "x-operation-name": "SignupDriver",
+                "tags": ["DriverController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "SignupDriver",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "instance_id": {
+                                        "type": "string"
+                                    },
+                                    "first_name": {
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "type": "string"
+                                    },
+                                    "mobile_country_code": {
+                                        "type": "string"
+                                    },
+                                    "mobile": {
+                                        "type": "string"
+                                    },
+                                    "licence_number": {
+                                        "type": "string"
+                                    },
+                                    "licence_photo": {
+                                        "type": "file"
+                                    },
+                                    "profile_photo": {
+                                        "type": "file"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "dob": {
+                                        "type": "string",
+                                        "description": "Format YYYY-MM-DD"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "family_mobile_country_code": {
+                                        "type": "string"
+                                    },
+                                    "family_mobile": {
+                                        "type": "string"
+                                    },
+                                    "device_token": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "DriverController.SignupDriver"
+            }
+        },
+         "/driver/update-profile": {
+            "post": {
+                "x-controller-name": "DriverController",
+                "x-operation-name": "UpdateProfile",
+                "tags": ["DriverController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "UpdateProfile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "driver_id": {
+                                        "type": "string"
+                                    },
+                                    "first_name": {
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "type": "string"
+                                    },
+                                    "mobile_country_code": {
+                                        "type": "string"
+                                    },
+                                    "mobile": {
+                                        "type": "string"
+                                    },
+                                    "licence_number": {
+                                        "type": "string"
+                                    },
+                                    "licence_photo": {
+                                        "type": "file"
+                                    },
+                                    "profile_photo": {
+                                        "type": "file"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "dob": {
+                                        "type": "string",
+                                        "description": "Format YYYY-MM-DD"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "family_mobile_country_code": {
+                                        "type": "string"
+                                    },
+                                    "family_mobile": {
+                                        "type": "string"
+                                    },
+                                    "device_token": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "DriverController.UpdateProfile"
+            }
+        },
+        "/driver/check-instance-connet": {
+            "get": {
+                "x-controller-name": "DriverController",
+                "x-operation-name": "CheckInstanceConnect",
+                "tags": ["DriverController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "CheckInstanceConnect",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "driver_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "DriverController.CheckInstanceConnect"
+            }
+        },
+        "/driver/logout": {
+            "post": {
+                "x-controller-name": "DriverController",
+                "x-operation-name": "Logout",
+                "tags": ["DriverController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Logout",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "driver_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "DriverController.Logout"
+            }
+        },
+        "/driver/signin": {
+            "post": {
+                "x-controller-name": "DriverController",
+                "x-operation-name": "SignIn",
+                "tags": ["DriverController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "SignIn",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "mobile_country_code": {
+                                        "type": "string"
+                                    },
+                                    "mobile": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "DriverController.SignIn"
+            }
+        },
+        "/driver/deliveries-for-you": {
+            "get": {
+                "x-controller-name": "DriverController",
+                "x-operation-name": "DeliveriesForYou",
+                "tags": ["DriverController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "DeliveriesForYou",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "driver_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "DriverController.DeliveriesForYou"
+            }
+        },
+        "/driver/routes-list": {
+            "get": {
+                "x-controller-name": "DriverController",
+                "x-operation-name": "RoutesList",
+                "tags": ["DriverController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "RoutesList",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "driver_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "DriverController.RoutesList"
+            }
+        },
+        "/driver/job-list": {
+            "get": {
+                "x-controller-name": "DriverController",
+                "x-operation-name": "JobList",
+                "tags": ["DriverController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "JobList",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "driver_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "DriverController.JobList"
+            }
+        },
+        "/driver/get-ratings-deliveries": {
+            "get": {
+                "x-controller-name": "DriverController",
+                "x-operation-name": "GetRatingsDeliveries",
+                "tags": ["DriverController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "GetRatingsDeliveries",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "driver_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }, {
+                    "name": "type",
+                    "in": "query",
+                    "schema": {
+                        "type": "string",
+                        "enum": ["TM", "LM", "TW", "LW"],
+                        "description": "TM-> This Month, LM-> Last Month, TW-> This Week, LW-> Last Week"
+                    }
+                }],
+                "operationId": "DriverController.GetRatingsDeliveries"
+            }
+        },
+        "/driver/history-list": {
+            "get": {
+                "x-controller-name": "DriverController",
+                "x-operation-name": "HistoryList",
+                "tags": ["DriverController"],
+                "security": [{
+                    "jwt": []
+                }],
+                "responses": {
+                    "200": {
+                        "description": "HistoryList",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [{
+                    "name": "driver_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "operationId": "DriverController.HistoryList"
             }
         }
     },

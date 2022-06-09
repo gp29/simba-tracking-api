@@ -57,9 +57,17 @@ var driverSchema = new Schema({
         type: String,
         default:''
     },
-    status: {
+    device_token: {
         type: String,
         default:''
+    },
+    is_all_data_done: {
+        type: Boolean,
+        default: true
+    },
+    status: {
+        type: String,
+        default:'active'
     },
     created_at: {
         type: Date,

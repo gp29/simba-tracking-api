@@ -15,11 +15,14 @@ const requiredParams = [
     'AWS_S3_CUSTOMER_BUCKET',
     'AWS_S3_DRIVER_BUCKET',
     'AWS_S3_ENTERPRISE_BUCKET',
+    'AWS_S3_SIGNATURE_BUCKET',
     'DATABASE_URL',
     'TIME_ZONE',
     'BACKOFFICE_URL',
     'AES_256_KEY',
-    'AES_256_IV'
+    'AES_256_IV',
+    'GOOGLE_KEY',
+    'PUSH_KEY'
 ];
 
 for (let i = 0; i < requiredParams.length; i++) {
@@ -51,10 +54,13 @@ module.exports = {
             customerBucket: process.env.AWS_S3_CUSTOMER_BUCKET,
             driverBucket: process.env.AWS_S3_DRIVER_BUCKET,
             enterpriseBucket: process.env.AWS_S3_ENTERPRISE_BUCKET,
+            signatureBucket: process.env.AWS_S3_SIGNATURE_BUCKET,
 	    },
 	},
     aes256:{
         key:process.env.AES_256_KEY,
         iv:process.env.AES_256_IV
     },
+    push_key: process.env.PUSH_KEY,
+    google_key: process.env.GOOGLE_KEY
 };

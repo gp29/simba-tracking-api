@@ -55,11 +55,19 @@ var customerSchema = new Schema({
     },
     status: {
         type: String,
+        default:'active'
+    },
+    device_token: {
+        type: String,
         default:''
     },
     reset_code: {
         type: String,
         default:''
+    },
+    customer_type: {
+        type: String,
+        default:'business'
     },
     created_at: {
         type: Date,

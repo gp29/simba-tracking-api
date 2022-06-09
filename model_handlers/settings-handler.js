@@ -9,6 +9,7 @@ const _ = require('underscore');
 const labels = require('./../utils/labels.json');
 const responseCodes = require('./../utils/response-codes');
 const timeZone = require('moment-timezone');
+const encryptDecryptHandler = require('./../model_handlers/encrypt-decrypt-handler');
 
 const get = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
@@ -54,8 +55,23 @@ const getCms = async(requestParam, req) => {
             let obj = {
                 privacy_policy: fullUrl + '/cms/privacy-policy.html',
                 term_condition: fullUrl + '/cms/term-condition.html',
+                help: fullUrl + '/cms/help.html',
             }
-            resolve(obj);
+            resolve(await encryptDecryptHandler.encrypt(obj));
+            return;
+        } catch (error) {
+            console.log(error)
+            reject(error)
+            return
+        }
+    })
+};
+
+const getSettings = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.settings, {}, { _id: 0, fb_url:1, twitter_url:1, instagram_url:1, linkedin_url:1, youtube_url:1, call_us:1, sos_number:1, support_email:1, company_address:1}, { created_at: 1 });
+            resolve(await encryptDecryptHandler.encrypt(response ? response : {}));
             return;
         } catch (error) {
             console.log(error)
@@ -68,5 +84,6 @@ const getCms = async(requestParam, req) => {
 module.exports = {
     get,
     update,
-    getCms
+    getCms,
+    getSettings
 };

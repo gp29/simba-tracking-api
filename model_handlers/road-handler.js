@@ -20,6 +20,9 @@ const get = async(requestParam) => {
             if(requestParam.status){
                 columnValue.status = requestParam.status
             }
+            if(requestParam.road_status){
+                columnValue.road_status = requestParam.road_status
+            }
             let response = await query.selectWithAnd(dbConstants.dbSchema.roads, columnValue, { _id: 0}, { created_at: 1 });
             if(requestParam.road_id){
                 response = response[0]
@@ -134,7 +137,9 @@ const getSort = async(requestParam) => {
                 elem.total_jobs = elem.jobs.length
                 let total_volume = 0;
                 _.each(elem.jobs, (rec) => {
-                    total_volume += rec.volume
+                    _.each(rec.items, (itm) => {
+                        total_volume += parseFloat(itm.volume)
+                    })
                 })
                 elem.total_volume = total_volume    
             })

@@ -13,6 +13,10 @@ var deliveryCatSchema = new Schema({
         type: String,
         default: ''
     },
+    code: {
+        type: String,
+        default: ''
+    },
     status: {
         type: String,
         default: ''

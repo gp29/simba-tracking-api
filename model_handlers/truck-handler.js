@@ -9,6 +9,7 @@ const _ = require('underscore');
 const labels = require('./../utils/labels.json');
 const responseCodes = require('./../utils/response-codes');
 const timeZone = require('moment-timezone');
+const encryptDecryptHandler = require('./../model_handlers/encrypt-decrypt-handler');
 
 const get = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
@@ -161,10 +162,30 @@ const action = async(requestParam) => {
     })
 };
 
+const list = async(requestParam) => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let response = await query.selectWithAndOne(dbConstants.dbSchema.customers, {customer_id:requestParam.customer_id}, { _id:0, customer_id: 1} );
+            if(!response){
+                reject(errors(labels.LBL_USER_NOT_FOUND[config.default_language], responseCodes.ResourceNotFound));
+                return;
+            }
+            let lists = await query.selectWithAnd(dbConstants.dbSchema.trucks, {status:'active'}, { _id:0, truck_id: 1, title:1, volume:1, weight:1} );
+            resolve(await encryptDecryptHandler.encrypt(lists));
+            return;
+        } catch (error) {
+            console.log(error)
+            reject(error)
+            return
+        }
+    })
+};
+
 module.exports = {
     get,
     getSort,
     create,
     update,
     action,
+    list
 };

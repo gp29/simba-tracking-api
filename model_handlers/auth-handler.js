@@ -164,5 +164,6 @@ module.exports = {
     login,
     forgot,
     reset,
-    logout
+    logout,
+    setupEmail
 };

@@ -9,8 +9,8 @@ const _ = require('underscore');
 const labels = require('./../utils/labels.json');
 const responseCodes = require('./../utils/response-codes');
 const timeZone = require('moment-timezone');
-const passwordHandler = require('./../utils/password-handler');
 const imgHandler = require('./../model_handlers/image-handler');
+const passwordHandler = require('./../utils/password-handler');
 
 const get = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
@@ -134,7 +134,6 @@ const create = async(requestParam, req) => {
                 requestParam.registration_doc = await imgHandler.uploadImage(req.files.registration_doc, config.aws.s3.enterpriseBucket)
             }
             requestParam.password = await passwordHandler.encrypt(requestParam.password.toString());
-
             let res = await query.insertSingle(dbConstants.dbSchema.enterprises, requestParam);
 
             // for instance create
@@ -143,6 +142,8 @@ const create = async(requestParam, req) => {
             monthDt.setDate(monthDt.getDate() + 30)
             let obj = {
                 enterprise_id: res.enterprise_id,
+                username: requestParam.email,
+                password: requestParam.password,
                 quantity: '1',
                 rented_day: '1_month',
                 start_date: today,

@@ -39,6 +39,8 @@ const enterprise = require('./routes/enterprise');
 const instance = require('./routes/instance');
 const road = require('./routes/road');
 const dashboard = require('./routes/dashboard');
+const job = require('./routes/job');
+const rating = require('./routes/rating');
 
 //other configurations
 const passport = require('passport');
@@ -87,6 +89,8 @@ app.use('/api/enterprise', enterprise);
 app.use('/api/instance', instance);
 app.use('/api/road', road);
 app.use('/api/dashboard', dashboard);
+app.use('/api/job', job);
+app.use('/api/rating', rating);
 
 app.use(upload());
 

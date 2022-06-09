@@ -9,8 +9,8 @@ const _ = require('underscore');
 const labels = require('./../utils/labels.json');
 const responseCodes = require('./../utils/response-codes');
 const timeZone = require('moment-timezone');
-const passwordHandler = require('./../utils/password-handler');
 const imgHandler = require('./../model_handlers/image-handler');
+const passwordHandler = require('./../utils/password-handler');
 
 const get = async(requestParam) => {
     return new Promise(async(resolve, reject) => {
@@ -131,6 +131,7 @@ const create = async(requestParam) => {
             }
             requestParam.start_date = today
             requestParam.end_date = endDt
+            requestParam.password = await passwordHandler.encrypt(requestParam.password.toString());
             await query.insertSingle(dbConstants.dbSchema.instances, requestParam);
             resolve({});
             return;

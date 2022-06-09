@@ -8,6 +8,9 @@
     "LBL_USER_NOT_FOUND": {
         "EN": "Your account is not longer in our system"
     },
+    "LBL_JOB_NOT_FOUND": {
+        "EN": "Your job is not longer in our system"
+    },
     "LBL_EMAIL_NOT_FOUND": {
         "EN": "Email ID not exists"
     },
@@ -34,5 +37,17 @@
     },
     "LBL_CAN_NOT_COMPLETE_ROAD": {
         "EN": "You can't complete this road before started, Please start and then do complete."
+    },
+    "LBL_YOU_CAN_NOT_CANCEL_JOB": {
+        "EN": "You can't cancel this job now."
+    },
+    "LBL_INSTANCE_NOT_REGISTERED": {
+        "EN": "This instance ID not linked with you."
+    },
+    "LBL_INSTANCE_NOT_FOUND": {
+        "EN": "You have entered invalid instance ID."
+    },
+    "LBL_USERNAME_NOT_FOUND": {
+        "EN": "You have entered invalid username."
     }
 }
